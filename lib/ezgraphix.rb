@@ -67,7 +67,7 @@ unless defined? Ezgraphix
       # * <tt> :w </tt> -- Width in pixels.
       # * <tt> :h </tt> -- Height in pixels.
       # Full list of options are listed below render_options
-      attr_accessor :render_options
+      attr_accessor :render_options, :data_xml
       
       COLORS = ['AFD8f6', '8E468E', '588526', 'B3A000', 'B2FF66',
                 'F984A1', 'A66EDD', 'B2FF66', '3300CC', '000033',
@@ -151,14 +151,13 @@ unless defined? Ezgraphix
       
       #Builds the xml to feed the chart.
       def to_xml
-        options = parse_options(self.render_options)
-        escaped_xml = populate_data
-        escaped_xml.to_xs
+        self.data_xml.to_xs if self.data_xml
       end
       
       def populate_data
         xml_builder = Builder::XmlMarkup.new
-        yield(xml_builder)
+        options = parse_options(self.render_options)
+        self.data_xml = yield(xml_builder, options)
       end
       
   end 
