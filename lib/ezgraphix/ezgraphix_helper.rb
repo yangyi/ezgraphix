@@ -40,6 +40,8 @@ module EzgraphixHelper
       type = '/FusionCharts/FCF_Line.swf'
     when 'doug2d'
       type = '/FusionCharts/FCF_Doughnut2D.swf'
+    when 'msline'
+      type = '/FusionCharts/FCF_MSLine.swf'
     end
   end
       
