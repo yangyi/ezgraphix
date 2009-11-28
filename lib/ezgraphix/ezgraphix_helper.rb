@@ -96,6 +96,8 @@ module EzgraphixHelper
         original_names['SYAxisName'] = v
       when :x_name
         original_names['xAxisName'] = v
+      else
+        original_names[k] = v
       end
       }
     original_names
