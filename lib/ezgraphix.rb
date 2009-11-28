@@ -151,9 +151,19 @@ unless defined? Ezgraphix
       
       #Builds the xml to feed the chart.
       def to_xml
-        self.data_xml.to_xs if self.data_xml
-      end
-      
+        if self.data_xml
+          self.data_xml.to_xs
+        else
+          options = parse_options(self.render_options)
+          g_xml = Builder::XmlMarkup.new
+          escaped_xml = g_xml.graph(options) do
+            self.data.each{ |k,v|
+              g_xml.set :value => v, :name => k, :color => self.rand_color 
+            }
+          end
+          escaped_xml.to_xs
+        end
+      end      
       def populate_data
         xml_builder = Builder::XmlMarkup.new
         options = parse_options(self.render_options)
